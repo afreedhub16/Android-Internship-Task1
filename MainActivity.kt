@@ -14,7 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.helloandroid.ui.theme.HelloAndroidTheme
-
+import androidx.compose.runtime.LaunchedEffect
 class MainActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -39,6 +39,17 @@ fun RestaurantLoginScreen() {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    var postTitle by remember { mutableStateOf("Loading API Data...") }
+
+    LaunchedEffect(Unit) {
+        try {
+            val posts = RetrofitInstance.api.getPosts()
+            postTitle = posts[0].title
+        } catch (e: Exception) {
+            postTitle = "API Error"
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -70,16 +81,23 @@ fun RestaurantLoginScreen() {
         Button(onClick = {}) {
             Text("Login")
         }
+
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Total Orders: 120")
         Text(text = "Total Customers: 85")
         Text(text = "Today's Revenue: ₹15,000")
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(text = "API Data:")
+        Text(text = postTitle)
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         Button(onClick = {}) {
             Text("Dashboard")
         }
-        
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -87,5 +105,4 @@ fun RestaurantLoginScreen() {
             Text("View Menu")
         }
     }
-
 }
