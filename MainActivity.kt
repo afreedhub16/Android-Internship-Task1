@@ -77,10 +77,18 @@ fun RestaurantLoginScreen() {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-
-        Button(onClick = {}) {
+        Button(
+            onClick = {
+                if (email == "admin@gmail.com" && password == "1234") {
+                    postTitle = "Login Successful"
+                } else {
+                    postTitle = "Invalid Email or Password"
+                }
+            }
+        ) {
             Text("Login")
         }
+
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -95,14 +103,22 @@ fun RestaurantLoginScreen() {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = {}) {
+        Button(
+            onClick = {
+                postTitle = "Dashboard Opened"
+            }
+        ) {
             Text("Dashboard")
         }
-
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = {}) {
+        Button(
+            onClick = {
+                postTitle = "Menu Opened"
+            }
+        ) {
             Text("View Menu")
         }
     }
+
 }
